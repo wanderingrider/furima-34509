@@ -10,12 +10,13 @@
 | surname             | string  | null: false               |
 | first_name          | string  | null: false               |
 | read_surname        | string  | null: false               |
-| read_first_name     | string  |                           |
+| read_first_name     | string  | null:false                |
 | birthday            | date    | null: false               |
 
 ### Association
 
 - has_many :items
+- has_many :shippings
 
  ## items テーブル
 
@@ -28,12 +29,13 @@
  | shipping_charge_id | integer    | null: false                    |
  | prefecture_id      | integer    | null: false                    |
  | shipping_date_id   | integer    | null: false                    |
+ | price              | integer    | null: false                    |
  | user               | references | null: false, foreign_key: true |
  
 ### Association
 
 - belongs_to :user
-- belongs_to :shipping
+- has_one    :shipping
 
 ## shippingsテーブル
 
@@ -41,18 +43,17 @@
 | --------------- | --------   | -----------                    |
 | user            | references | null: false, foreign_key: true |
 | item            | references | null: false, foreign_key: true |
-| price           | integer    | null: false                    |
 
 ### Association
 - belongs_to :item
 - has_one :purchase
-
+- belongs_to :user
 ## purchaseテーブル
 
 | Column                 | Type       | Options                       | 
 | -------------------    | ---------- | ----------------------------  |
 | postal_code            | string     | null: false                   |
-| purchase_prefecture_id | integer    | null: false                   |
+| prefecture_id          | integer    | null: false                   |
 | municipality           | string     | null: false                   |
 | address                | string     | null: false                   |
 | building               | string     |                               | 
