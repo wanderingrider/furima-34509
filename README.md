@@ -1,15 +1,17 @@
 # テーブル設計
 
-## userテーブル 
+## usersテーブル 
 
-| Column    | Type    | Option      |
-| ----------| ------- | ----------- | 
-| nickname  | string  | null: false |
-| email     | string  | null: false |
-| password  | string  | null: false |
-| name      | string  | null: false |
-| read_name | string  | null: false |
-| birthday  | integer | null: false |
+| Column              | Type    | Options                   |
+| ------------------- | --------| --------------------------|
+| nickname            | string  | null: false               |
+| email               | string  | null: false, unique: true |
+| encrypted_password  | string  | null: false               |
+| surname             | string  | null: false               |
+| first_name          | string  | null: false               |
+| read_surname        | string  | null: false               |
+| read_first_name     | string  |                           |
+| birthday            | date    | null: false               |
 
 ### Association
 
@@ -17,11 +19,11 @@
 
  ## items テーブル
 
- | Column         | Type       |     Option                           |
+ | Column         | Type       |     Options                    |
  | -------------- | ---------- | ------------------------------ |
  | image          |            | null: false                    |
  | product_name   | string     | null: false                    |
- | description    | text       | null: false                   |
+ | description    | text       | null: false                    |
  | category       | string     | null: false                    | 
  | product_status | string     | null: false                    | 
  | user           | references | null: false, foreign_key: true |
@@ -31,9 +33,9 @@
 - belongs_to :users
 - belongs_tp :shipping
 
-## shippingテーブル
+## shippingsテーブル
 
-| Column          | Type    | Option      |
+| Column          | Type    | Options     |
 | --------------- | --------| ----------- |
 | shipping_charge | string  | null: false |
 | prefecture      | string  | null: false |
@@ -46,13 +48,14 @@
 
 ## purchaseテーブル
 
-| Column              | Type    | Option      | 
-| ------------------- | ------- | ----------  |
-| postal_code         | integer | null: false |
-| purchase_prefecture | string  | null: false |
-| municipality        | string  | null: false |
-| building            | string  | null: false |
-| phone_number        | integer | null: false |
+| Column                 | Type    | Options     | 
+| -------------------    | ------- | ----------  |
+| postal_code            | string  | null: false |
+| purchase_prefecture_id | integer | null: false |
+| municipality           | string  | null: false |
+| address                | string  | null: false |
+| building               | string  |             | 
+| phone_number           | string  | null: false |
 
 ### Association
 
