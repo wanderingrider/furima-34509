@@ -29,7 +29,7 @@
  
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 - belongs_tp :shipping
 
 ## shippingsテーブル
@@ -42,7 +42,7 @@
 | price           | integer | null: false |
 
 ### Association
-- belongs_to :items
+- belongs_to :item
 - belongs_to :purchase
 
 ## purchaseテーブル
@@ -58,4 +58,4 @@
 
 ### Association
 
-- belongs_to :shippings
+- belongs_to :shipping
