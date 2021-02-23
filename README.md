@@ -48,6 +48,7 @@
 - belongs_to :item
 - has_one :purchase
 - belongs_to :user
+
 ## purchaseテーブル
 
 | Column                 | Type       | Options                       | 
