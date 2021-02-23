@@ -1,24 +1,59 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## userテーブル 
 
-Things you may want to cover:
+| Column    | Type    | Option      |
+| ----------| ------- | ----------- | 
+| nickname  | string  | null: false |
+| email     | string  | null: false |
+| password  | string  | null: false |
+| name      | string  | null: false |
+| read_name | string  | null: false |
+| birthday  | integer | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
 
-* Configuration
+ ## items テーブル
 
-* Database creation
+ | Column         | Type       |     Option                           |
+ | -------------- | ---------- | ------------------------------ |
+ | image          |            | null: false                    |
+ | product_name   | string     | null: false                    |
+ | description    | text       | null: false                   |
+ | category       | string     | null: false                    | 
+ | product_status | string     | null: false                    | 
+ | user           | references | null: false, foreign_key: true |
+ 
+### Association
 
-* Database initialization
+- belongs_to :users
+- belongs_tp :shipping
 
-* How to run the test suite
+## shippingテーブル
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column          | Type    | Option      |
+| --------------- | --------| ----------- |
+| shipping_charge | string  | null: false |
+| prefecture      | string  | null: false |
+| shipping_date   | string  | null: false |
+| price           | integer | null: false |
 
-* Deployment instructions
+### Association
+- belongs_to :items
+- belongs_to :purchase
 
-* ...
+## purchaseテーブル
+
+| Column              | Type    | Option      | 
+| ------------------- | ------- | ----------  |
+| postal_code         | integer | null: false |
+| purchase_prefecture | string  | null: false |
+| municipality        | string  | null: false |
+| building            | string  | null: false |
+| phone_number        | integer | null: false |
+
+### Association
+
+- belongs_to :shippings
