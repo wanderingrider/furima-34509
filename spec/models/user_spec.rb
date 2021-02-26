@@ -83,12 +83,22 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('Surname is invalid')
       end
+      it 'ユーザー本名は、全角 (漢字・ひらがな・カタカナ)での入力が必須であること' do
+        @user.first_name = 'tato'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("First name is invalid") 
+      end
      it 'ユーザー本名のフリガナは、名字と名前がそれぞれ必須であること' do
       @user.read_surname = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Read surname can't be blank", 'Read surname is invalid')
      end
-     it 'ユーザー本名のフリガナは、名字と名前がそれぞれ必須であること' do
+     it 'ユーザー本名のフリガナは半角文字だと登録できないこと' do
+      @user.read_surname = 'abcd'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Read surname is invalid")
+     end
+      it 'ユーザー本名のフリガナは、名字と名前がそれぞれ必須であること' do
       @user.read_first_name = ''
       @user.valid?
       expect(@user.errors.full_messages).to include("Read first name can't be blank", "Read first name is invalid")
@@ -98,6 +108,11 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include('Read surname is invalid')
      end
+     it 'ユーザー本名のフリガナは、全角(カタカナ）での入力が必須であること' do
+      @user.read_first_name = '太郎'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Read first name is invalid")
+      end
      it '生年月日が必須であること' do
       @user.birthday = ''
       @user.valid?
