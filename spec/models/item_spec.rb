@@ -29,29 +29,29 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Description can't be blank")
       end
       it 'カテゴリーの情報が必須であること' do
-        @item.category_id = ''
+        @item.category_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Category is not a number')
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
       it '商品の状態についての情報が必須であること' do
-        @item.product_status_id = ''
+        @item.product_status_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Product status is not a number')
+        expect(@item.errors.full_messages).to include("Product status must be other than 1")
       end
       it '配送料の負担についての情報が必須であること' do
-        @item.shipping_charge_id = ''
+        @item.shipping_charge_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Shipping charge is not a number')
+        expect(@item.errors.full_messages).to include("Shipping charge must be other than 1")
       end
       it '発送元の地域についての情報が必須であること' do
-        @item.prefecture_id = ''
+        @item.prefecture_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Prefecture is not a number')
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
       it '発送までの日数の情報が必須のこと' do
-        @item.shipping_date_id = ''
+        @item.shipping_date_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include('Shipping date is not a number')
+        expect(@item.errors.full_messages).to include("Shipping date must be other than 1")
       end
       it '販売価格についての情報が必須のこと' do
         @item.price = ''
@@ -59,12 +59,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it '販売価格は¥300~¥9,999,999の間でのみ保存することができる' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
       it '販売価格は¥300~¥9,999,999の間でのみ保存することができる' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
