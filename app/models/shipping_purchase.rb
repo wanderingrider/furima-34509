@@ -1,6 +1,6 @@
 class ShippingPurchase
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipality, :address, :building, :phone_number, 
+  attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :municipality, :address, :building, :phone_number, :shipping_id
 
   with_options presence: true do
     validates :user_id
@@ -14,7 +14,8 @@ class ShippingPurchase
   validates :prefecture_id, numericality: { other_than: 1 }
 
   def save
-    shipping = Shipping.create(user_id: user, item_id: item)
-    Purchase.create(postal_code: postal_code, municipality: municipality, address: address, phone_number: phone_number)
+    shipping = Shipping.create(user_id: user_id, item_id: item_id)
+    Purchase.create(postal_code: postal_code, municipality: municipality, address: address,
+                    building: building, phone_number: phone_number, prefecture_id: prefecture_id, shipping_id: shipping.id)
   end
 end
