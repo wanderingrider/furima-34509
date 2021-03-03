@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   root to:"items#index"
   
   resources :items do
-    resources :shipping, only: [:create, :index]
+    resources :shippings, only: [:index, :create, :new]
   end
 end
