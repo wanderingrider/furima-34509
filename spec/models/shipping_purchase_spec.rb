@@ -12,7 +12,7 @@ RSpec.describe ShippingPurchase, type: :model do
     it '必要な情報を適切に入力すると、商品の購入ができること' do
       expect(@shipping_purchase).to be_valid
     end
-  end
+    end
   
   context '購入者情報を保存できないとき' do
     it '郵便番号がないと保存できない' do
@@ -56,7 +56,21 @@ RSpec.describe ShippingPurchase, type: :model do
       expect(@shipping_purchase.errors.full_messages).to include("Phone number is invalid")
     end
   end
-  end
 end
 
-
+  describe 'クレジットカード情報が保存できるか' do
+    context'クレジットカード情報を保存できる' do
+      it '必要な情報を入力するとクレジットカード情報を入力すると保存できる' do
+        expect(@shipping_purchase).to be_valid
+      end
+    end
+  
+    context 'クレジットカード情報を保存できないとき' do
+      it 'tokenが空では保存できない' do
+      @shipping_purchase.token = ''
+      @shipping_purchase.valid?
+      expect(@shipping_purchase.errors.full_messages).to include("Token can't be blank")
+      end
+    end
+  end
+end
