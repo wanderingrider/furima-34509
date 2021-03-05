@@ -12,14 +12,17 @@ RSpec.describe ShippingPurchase, type: :model do
       it '必要な情報を適切に入力すると、商品の購入ができること' do
         expect(@shipping_purchase).to be_valid
       end
+      it '建物名がなくても保存できる' do
+        @shipping_purchase.building = ''
+        expect(@shipping_purchase).to be_valid
+      end
     end
 
     context '購入者情報を保存できないとき' do
       it '郵便番号がないと保存できない' do
         @shipping_purchase.postal_code = ''
         @shipping_purchase.valid?
-        expect(@shipping_purchase.errors.full_messages).to include("Postal code can't be blank",
-                                                                   'Postal code is invalid. Include hyphen(-)')
+        expect(@shipping_purchase.errors.full_messages).to include("Postal code can't be blank")
       end
       it '都道府県情報がないと保存ができない' do
         @shipping_purchase.prefecture_id = '1'
@@ -55,6 +58,16 @@ RSpec.describe ShippingPurchase, type: :model do
         @shipping_purchase.phone_number = '8887777888'
         @shipping_purchase.valid?
         expect(@shipping_purchase.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'user_idがないと保存ができない' do
+        @shipping_purchase.user_id = ''
+        @shipping_purchase.valid?
+        expect(@shipping_purchase.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idがないと保存ができない' do
+        @shipping_purchase.item_id = ''
+        @shipping_purchase.valid?
+        expect(@shipping_purchase.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
