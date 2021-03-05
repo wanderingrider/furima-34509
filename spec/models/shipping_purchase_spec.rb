@@ -25,7 +25,7 @@ RSpec.describe ShippingPurchase, type: :model do
         expect(@shipping_purchase.errors.full_messages).to include("Postal code can't be blank")
       end
       it '都道府県情報がないと保存ができない' do
-        @shipping_purchase.prefecture_id = '1'
+        @shipping_purchase.prefecture_id = 1
         @shipping_purchase.valid?
         expect(@shipping_purchase.errors.full_messages).to include('Prefecture must be other than 1')
       end
@@ -44,6 +44,11 @@ RSpec.describe ShippingPurchase, type: :model do
         @shipping_purchase.valid?
         expect(@shipping_purchase.errors.full_messages).to include("Phone number can't be blank")
       end
+      it '電話番号は英数混合では登録できない'do
+        @shipping_purchase.phone_number = '090aaaabbbb'
+        @shipping_purchase.valid?
+        expect(@shipping_purchase.errors.full_messages).to include("Phone number is invalid")
+      end
       it '郵便番号の保存にはハイフンが必要' do
         @shipping_purchase.postal_code = '7778888'
         @shipping_purchase.valid?
@@ -52,7 +57,7 @@ RSpec.describe ShippingPurchase, type: :model do
       it '電話番号は11桁の数字のみ保存できる' do
         @shipping_purchase.phone_number = '888777788888'
         @shipping_purchase.valid?
-        expect(@shipping_purchase.errors.full_messages).to include('Phone number is invalid')
+        expect(@shipping_purchase.errors.full_messages).to include("Phone number is invalid")
       end
       it '電話番号は11桁の数字のみ保存できる' do
         @shipping_purchase.phone_number = '8887777888'
