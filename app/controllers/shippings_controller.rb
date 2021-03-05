@@ -3,7 +3,7 @@ class ShippingsController < ApplicationController
   before_action :set_shippings, only: [:index, :create]
 
   def index
-    return redirect_to root_path if @item.user.id == current_user.id && Shipping.select(:user_id)
+    return redirect_to root_path if @item.user.id == current_user.id or Shipping.select(:user_id)
 
     @shipping_purchase = ShippingPurchase.new
   end
