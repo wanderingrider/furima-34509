@@ -54,13 +54,8 @@ RSpec.describe ShippingPurchase, type: :model do
         @shipping_purchase.valid?
         expect(@shipping_purchase.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
-      it '電話番号は11桁の数字のみ保存できる' do
+      it '電話番号は11桁の数字以下のみ保存できる' do
         @shipping_purchase.phone_number = '888777788888'
-        @shipping_purchase.valid?
-        expect(@shipping_purchase.errors.full_messages).to include("Phone number is invalid")
-      end
-      it '電話番号は11桁の数字のみ保存できる' do
-        @shipping_purchase.phone_number = '8887777888'
         @shipping_purchase.valid?
         expect(@shipping_purchase.errors.full_messages).to include('Phone number is invalid')
       end
