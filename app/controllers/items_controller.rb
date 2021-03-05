@@ -52,6 +52,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to action: :index if   @item.user.id != current_user.id or  Shipping.select(:user_id)
+    redirect_to action: :index if   @item.user.id != current_user.id or  @item.shipping != nil
   end
 end
