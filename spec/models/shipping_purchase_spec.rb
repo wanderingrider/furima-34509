@@ -64,6 +64,11 @@ RSpec.describe ShippingPurchase, type: :model do
         @shipping_purchase.valid?
         expect(@shipping_purchase.errors.full_messages).to include('Phone number is invalid')
       end
+      it '電話番号は英数混合では保存できない' do
+        @shipping_purchase.phone_number = 'aaa00000bb'
+        @shipping_purchase.valid?
+        expect(@shipping_purchase.errors.full_messages).to include('Phone number is invalid')
+      end
       it 'user_idがないと保存ができない' do
         @shipping_purchase.user_id = ''
         @shipping_purchase.valid?
